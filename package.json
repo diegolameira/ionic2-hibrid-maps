@@ -34,5 +34,8 @@
   "license": "MIT",
   "dependencies": {
     "angular2-google-maps": "^0.17.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^2.0.3"
   }
 }
