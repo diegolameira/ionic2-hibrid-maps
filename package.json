@@ -1,0 +1,38 @@
+{
+  "name": "ionic2-hibrid-maps",
+  "version": "0.1.0",
+  "description": "A hibrid google-maps plugin for cordova projects with angular2 (or if you prefer, ionic 2)",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc -w",
+    "build": "tsc"
+  },
+  "keywords": [
+    "angular2",
+    "google-maps",
+    "ng2",
+    "angular",
+    "maps",
+    "ionic2",
+    "cordova"
+  ],
+  "author": {
+    "name": "Diego Lameira",
+    "email": "diegolameira@me.com"
+  },
+  "maintainers": [
+    {
+      "name": "Diego Lameira",
+      "email": "diegolameira@me.com"
+    }
+  ],
+  "peerDependencies": {
+    "ionic-native": "2.4.1",
+    "@angular/common": "^2.3.1",
+    "@angular/core": "^2.3.1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "angular2-google-maps": "^0.17.0"
+  }
+}
