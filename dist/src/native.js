@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ionic_angular_1 = require("ionic-angular");
-var ionic_native_1 = require("ionic-native");
+var google_maps_1 = require("@ionic-native/google-maps");
 var MapNativeComponent = (function () {
     function MapNativeComponent(platform) {
         var _this = this;
@@ -46,7 +46,7 @@ var MapNativeComponent = (function () {
         }
     };
     MapNativeComponent.prototype.moveMap = function (lat, lng) {
-        var ionic = new ionic_native_1.GoogleMapsLatLng(lat, lng);
+        var ionic = new google_maps_1.LatLng(lat, lng);
         var position = {
             target: ionic,
             zoom: 18,
@@ -58,7 +58,7 @@ var MapNativeComponent = (function () {
         var _this = this;
         var params = this.initialPosition || this.default;
         var lat = params.latitude, lng = params.longitude;
-        var location = new ionic_native_1.GoogleMapsLatLng(lat, lng);
+        var location = new google_maps_1.LatLng(lat, lng);
         var options = {
             backgroundColor: 'white',
             controls: {
@@ -80,12 +80,12 @@ var MapNativeComponent = (function () {
                 bearing: 0
             }
         };
-        this.map = new ionic_native_1.GoogleMap('map', options);
+        this.map = new google_maps_1.GoogleMap('map', options);
         this.map.getMyLocation(function (location) {
             _this.moveMap(location.latLng.lat, location.latLng.lng);
             _this.drawPosition(location.latLng);
         });
-        this.map.on(ionic_native_1.GoogleMapsEvent.MAP_READY).subscribe(function () {
+        this.map.on(google_maps_1.GoogleMapsEvent.MAP_READY).subscribe(function () {
             var params = _this.initialPosition || _this.default;
             var lat = params.latitude, lng = params.longitude;
             _this.moveMap(lat, lng);
@@ -99,7 +99,7 @@ var MapNativeComponent = (function () {
     };
     MapNativeComponent.prototype.drawMarker = function (marker) {
         var _this = this;
-        var latLng = new ionic_native_1.GoogleMapsLatLng(marker.latitude, marker.longitude);
+        var latLng = new google_maps_1.LatLng(marker.latitude, marker.longitude);
         this.map.addMarker({
             position: latLng
         }).then(function (marker) {
@@ -111,10 +111,10 @@ var MapNativeComponent = (function () {
     MapNativeComponent.prototype.drawPosition = function (latLng) {
         var _this = this;
         this.map.addMarker({
-            position: new ionic_native_1.GoogleMapsLatLng(latLng.lat, latLng.lng)
+            position: new google_maps_1.LatLng(latLng.lat, latLng.lng)
         }).then(function (marker) {
             _this.map.on('user_move').subscribe(function (latLng) {
-                marker.setPosition(new ionic_native_1.GoogleMapsLatLng(latLng.lat, latLng.lng));
+                marker.setPosition(new google_maps_1.LatLng(latLng.lat, latLng.lng));
             });
         });
     };

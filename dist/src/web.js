@@ -14,11 +14,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ionic_angular_1 = require("ionic-angular");
-var ionic_native_1 = require("ionic-native");
+var geolocation_1 = require("@ionic-native/geolocation");
+var google_maps_1 = require("@ionic-native/google-maps");
 var MapWebComponent = (function () {
-    function MapWebComponent(platform) {
+    function MapWebComponent(platform, geolocation) {
         var _this = this;
         this.platform = platform;
+        this.geolocation = geolocation;
         this.default = {
             longitude: 0,
             latitude: 0,
@@ -49,12 +51,12 @@ var MapWebComponent = (function () {
     };
     MapWebComponent.prototype.loadMap = function () {
         var _this = this;
-        ionic_native_1.Geolocation.getCurrentPosition().then(function (position) {
+        this.geolocation.getCurrentPosition().then(function (position) {
             _this.setUserCoordinates(position.coords);
             _this.setViewCoordinates(position.coords);
             _this.initialPosition = _this.initialPosition || position.coords;
         });
-        this.watch = ionic_native_1.Geolocation.watchPosition().subscribe(function (position) {
+        this.watch = this.geolocation.watchPosition().subscribe(function (position) {
             _this.setUserCoordinates(position.coords);
             _this.setViewCoordinates(position.coords);
         });
@@ -67,7 +69,7 @@ var MapWebComponent = (function () {
     };
     MapWebComponent.prototype.drawMarker = function (marker) {
         var _this = this;
-        var latLng = new ionic_native_1.GoogleMapsLatLng(marker.latitude, marker.longitude);
+        var latLng = new google_maps_1.LatLng(marker.latitude, marker.longitude);
         this.map.addMarker({
             position: latLng
         }).then(function (marker) {
@@ -79,10 +81,10 @@ var MapWebComponent = (function () {
     MapWebComponent.prototype.drawPosition = function (latLng) {
         var _this = this;
         this.map.addMarker({
-            position: new ionic_native_1.GoogleMapsLatLng(latLng.lat, latLng.lng)
+            position: new google_maps_1.LatLng(latLng.lat, latLng.lng)
         }).then(function (marker) {
             _this.map.on('user_move').subscribe(function (latLng) {
-                marker.setPosition(new ionic_native_1.GoogleMapsLatLng(latLng.lat, latLng.lng));
+                marker.setPosition(new google_maps_1.LatLng(latLng.lat, latLng.lng));
             });
         });
     };
@@ -95,7 +97,8 @@ MapWebComponent = __decorate([
         styles: ["\n  sebm-google-map {\n    display: block;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n  }\n  "]
     }),
     __param(0, core_1.Inject(ionic_angular_1.Platform)),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof geolocation_1.Geolocation !== "undefined" && geolocation_1.Geolocation) === "function" && _a || Object])
 ], MapWebComponent);
 exports.MapWebComponent = MapWebComponent;
+var _a;
 //# sourceMappingURL=web.js.map

@@ -21,19 +21,19 @@ function components() {
     ];
 }
 exports.components = components;
-var HibridMapModule = HibridMapModule_1 = (function () {
-    function HibridMapModule() {
+var HibridMapsModule = HibridMapsModule_1 = (function () {
+    function HibridMapsModule() {
     }
-    HibridMapModule.forRoot = function (config) {
+    HibridMapsModule.forRoot = function (config) {
         return {
-            ngModule: HibridMapModule_1,
+            ngModule: HibridMapsModule_1,
             providers: [browser_globals_1.BROWSER_GLOBALS_PROVIDERS, { provide: core_2.MapsAPILoader, useClass: core_2.LazyMapsAPILoader },
                 { provide: core_2.LAZY_MAPS_API_CONFIG, useValue: config }],
         };
     };
-    return HibridMapModule;
+    return HibridMapsModule;
 }());
-HibridMapModule = HibridMapModule_1 = __decorate([
+HibridMapsModule = HibridMapsModule_1 = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
@@ -42,7 +42,7 @@ HibridMapModule = HibridMapModule_1 = __decorate([
         declarations: components(),
         exports: components(),
     })
-], HibridMapModule);
-exports.HibridMapModule = HibridMapModule;
-var HibridMapModule_1;
+], HibridMapsModule);
+exports.HibridMapsModule = HibridMapsModule;
+var HibridMapsModule_1;
 //# sourceMappingURL=module.js.map
