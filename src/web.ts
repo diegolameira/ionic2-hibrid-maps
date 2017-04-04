@@ -1,10 +1,9 @@
 import { Inject, Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import {
-  GoogleMap, GoogleMapsLatLng, Geolocation
-} from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMap, LatLng } from '@ionic-native/google-maps';
 
-declare var google;
+declare var google:any;
 
 @Component({
   selector: 'map-web',
@@ -41,7 +40,7 @@ declare var google;
 export class MapWebComponent {
 
   watch:any;
-  initialPosition;
+  initialPosition:any;
   map: GoogleMap;
 
   default:Coord = {
@@ -54,7 +53,7 @@ export class MapWebComponent {
   user:Coord = this.default;
   markers:Array<any>;
 
-  constructor(@Inject(Platform) public platform) {
+  constructor(@Inject(Platform) public platform:any, public geolocation: Geolocation) {
 
     platform.ready().then(() => {
       this.loadMap();
@@ -87,12 +86,12 @@ export class MapWebComponent {
   }
 
   loadMap() {
-    Geolocation.getCurrentPosition().then((position) => {
+    this.geolocation.getCurrentPosition().then((position:any) => {
       this.setUserCoordinates(position.coords);
       this.setViewCoordinates(position.coords);
       this.initialPosition = this.initialPosition || position.coords;
     });
-    this.watch = Geolocation.watchPosition().subscribe(position => {
+    this.watch = this.geolocation.watchPosition().subscribe((position:any) => {
       this.setUserCoordinates(position.coords);
       this.setViewCoordinates(position.coords);
     });
@@ -107,11 +106,11 @@ export class MapWebComponent {
 
   drawMarker(marker:any):void
   {
-    let latLng = new GoogleMapsLatLng(marker.latitude, marker.longitude);
+    let latLng = new LatLng(marker.latitude, marker.longitude);
     this.map.addMarker({
       position: latLng
-    }).then(marker => {
-      this.map.on('categories_change').subscribe(categories => {
+    }).then((marker:any) => {
+      this.map.on('categories_change').subscribe((categories:any) => {
         marker.setVisible(categories.indexOf(marker.type) ? true:false);
       });
     });
@@ -120,10 +119,10 @@ export class MapWebComponent {
   drawPosition(latLng:any):void
   {
     this.map.addMarker({
-      position: new GoogleMapsLatLng(latLng.lat, latLng.lng)
-    }).then(marker => {
-      this.map.on('user_move').subscribe(latLng => {
-        marker.setPosition(new GoogleMapsLatLng(latLng.lat, latLng.lng));
+      position: new LatLng(latLng.lat, latLng.lng)
+    }).then((marker:any) => {
+      this.map.on('user_move').subscribe((latLng:any) => {
+        marker.setPosition(new LatLng(latLng.lat, latLng.lng));
       });
     });
   }

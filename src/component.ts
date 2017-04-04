@@ -10,7 +10,7 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 })
 export class HibridMapsComponent implements OnInit, OnDestroy  {
 
-  constructor(@Inject(Platform) public platform){}
+  constructor(@Inject(Platform) public platform:any){}
 
   get isCordova():boolean {
     return this.platform.is('cordova');

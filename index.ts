@@ -1,1 +1,1 @@
-export { HibridMapModule } from './src/module';
+export { HibridMapsModule, HibridMapsModuleConfig } from './src/module';

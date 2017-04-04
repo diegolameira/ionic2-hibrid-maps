@@ -27,12 +27,15 @@
     }
   ],
   "peerDependencies": {
-    "ionic-native": "2.4.1",
+    "@angular/core": "^2.3.1",
     "@angular/common": "^2.3.1",
-    "@angular/core": "^2.3.1"
+    "@ionic-native/core": "^2.3.1",
+    "@ionic-native/google-maps": "^2.3.1",
+    "@ionic-native/geolocation": "^2.3.1"
   },
   "license": "MIT",
   "dependencies": {
+    "@ionic-native/google-maps": "^3.4.4",
     "angular2-google-maps": "^0.17.0"
   },
   "devDependencies": {

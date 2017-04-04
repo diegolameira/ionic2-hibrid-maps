@@ -7,6 +7,8 @@ import { HibridMapsComponent }  from './component';
 import { MapNativeComponent } from './native';
 import { MapWebComponent } from './web';
 
+export { LazyMapsAPILoaderConfigLiteral as HibridMapsModuleConfig } from 'angular2-google-maps/core';
+
 export function components() {
   return [
     HibridMapsComponent,
@@ -23,10 +25,10 @@ export function components() {
   declarations: components(),
   exports: components(),
 })
-export class HibridMapModule {
+export class HibridMapsModule {
   static forRoot(config?: LazyMapsAPILoaderConfigLiteral): ModuleWithProviders {
     return {
-      ngModule: HibridMapModule,
+      ngModule: HibridMapsModule,
       providers: [BROWSER_GLOBALS_PROVIDERS, {provide: MapsAPILoader, useClass: LazyMapsAPILoader},
         {provide: LAZY_MAPS_API_CONFIG, useValue: config}],
     }
