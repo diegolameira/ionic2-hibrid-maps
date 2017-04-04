@@ -1,6 +1,6 @@
 {
   "name": "ionic2-hibrid-maps",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A hibrid google-maps plugin for cordova projects with angular2 (or if you prefer, ionic 2)",
   "main": "dist/index.js",
   "scripts": {
