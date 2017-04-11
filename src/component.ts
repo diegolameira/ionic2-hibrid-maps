@@ -4,8 +4,8 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 @Component({
   selector: 'hibrid-maps',
   template: `
-    <div *ngIf="isCordova"><map-native></map-native></div>
-    <div *ngIf="!isCordova"><map-web></map-web></div>
+    <div *ngIf="isCordova"><map-native><ng-content></ng-content></map-native></div>
+    <div *ngIf="!isCordova"><map-web></map-web><ng-content></ng-content></div>
   `,
 })
 export class HibridMapsComponent implements OnInit, OnDestroy  {

@@ -15,12 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ionic_angular_1 = require("ionic-angular");
 var geolocation_1 = require("@ionic-native/geolocation");
-var google_maps_1 = require("@ionic-native/google-maps");
+var core_2 = require("angular2-google-maps/core");
 var MapWebComponent = (function () {
-    function MapWebComponent(platform, geolocation) {
+    function MapWebComponent(platform, geolocation, loader) {
         var _this = this;
         this.platform = platform;
         this.geolocation = geolocation;
+        this.loader = loader;
+        this.apiLoaded = false;
         this.default = {
             longitude: 0,
             latitude: 0,
@@ -51,12 +53,17 @@ var MapWebComponent = (function () {
     };
     MapWebComponent.prototype.loadMap = function () {
         var _this = this;
+        this.loader.load().then(function () {
+            _this.apiLoaded = true;
+        });
         this.geolocation.getCurrentPosition().then(function (position) {
+            debugger;
             _this.setUserCoordinates(position.coords);
             _this.setViewCoordinates(position.coords);
             _this.initialPosition = _this.initialPosition || position.coords;
         });
         this.watch = this.geolocation.watchPosition().subscribe(function (position) {
+            debugger;
             _this.setUserCoordinates(position.coords);
             _this.setViewCoordinates(position.coords);
         });
@@ -69,10 +76,8 @@ var MapWebComponent = (function () {
     };
     MapWebComponent.prototype.drawMarker = function (marker) {
         var _this = this;
-        var latLng = new google_maps_1.LatLng(marker.latitude, marker.longitude);
-        this.map.addMarker({
-            position: latLng
-        }).then(function (marker) {
+        // let latLng = new LatLng(marker.latitude, marker.longitude);
+        this.map.addMarker({}).then(function (marker) {
             _this.map.on('categories_change').subscribe(function (categories) {
                 marker.setVisible(categories.indexOf(marker.type) ? true : false);
             });
@@ -80,11 +85,9 @@ var MapWebComponent = (function () {
     };
     MapWebComponent.prototype.drawPosition = function (latLng) {
         var _this = this;
-        this.map.addMarker({
-            position: new google_maps_1.LatLng(latLng.lat, latLng.lng)
-        }).then(function (marker) {
+        this.map.addMarker({}).then(function (marker) {
             _this.map.on('user_move').subscribe(function (latLng) {
-                marker.setPosition(new google_maps_1.LatLng(latLng.lat, latLng.lng));
+                // marker.setPosition(new LatLng(latLng.lat, latLng.lng));
             });
         });
     };
@@ -97,8 +100,8 @@ MapWebComponent = __decorate([
         styles: ["\n  sebm-google-map {\n    display: block;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n  }\n  "]
     }),
     __param(0, core_1.Inject(ionic_angular_1.Platform)),
-    __metadata("design:paramtypes", [Object, typeof (_a = typeof geolocation_1.Geolocation !== "undefined" && geolocation_1.Geolocation) === "function" && _a || Object])
+    __metadata("design:paramtypes", [Object, geolocation_1.Geolocation,
+        core_2.MapsAPILoader])
 ], MapWebComponent);
 exports.MapWebComponent = MapWebComponent;
-var _a;
 //# sourceMappingURL=web.js.map

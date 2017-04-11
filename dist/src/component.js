@@ -32,7 +32,7 @@ var HibridMapsComponent = (function () {
 HibridMapsComponent = __decorate([
     core_1.Component({
         selector: 'hibrid-maps',
-        template: "\n    <div *ngIf=\"isCordova\"><map-native></map-native></div>\n    <div *ngIf=\"!isCordova\"><map-web></map-web></div>\n  ",
+        template: "\n    <div *ngIf=\"isCordova\"><map-native><ng-content></ng-content></map-native></div>\n    <div *ngIf=\"!isCordova\"><map-web></map-web><ng-content></ng-content></div>\n  ",
     }),
     __param(0, core_1.Inject(ionic_angular_1.Platform)),
     __metadata("design:paramtypes", [Object])

@@ -1,10 +1,10 @@
-import { Inject, Component } from '@angular/core';
+import { Inject, Component, AfterContentInit } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { GoogleMap, LatLng, CameraPosition, GoogleMapsEvent } from '@ionic-native/google-maps';
 
 @Component({
   selector: 'map-native',
-  template:  `<div id="map"></div>`,
+  template:  `<div id="map"><ng-content></ng-content></div>`,
   styles: [`
     ion-app._gmaps_cdv_ .nav-decor{
       background-color: transparent !important;
@@ -18,7 +18,7 @@ import { GoogleMap, LatLng, CameraPosition, GoogleMapsEvent } from '@ionic-nativ
     }
   `]
 })
-export class MapNativeComponent {
+export class MapNativeComponent implements AfterContentInit {
 
   initialPosition: any;
   map: GoogleMap;
@@ -34,11 +34,12 @@ export class MapNativeComponent {
   markers:Array<any>;
 
   constructor(@Inject(Platform) public platform: any) {
+  }
 
-    platform.ready().then(() => {
+  ngAfterContentInit() {
+    this.platform.ready().then(() => {
       this.loadMap();
     });
-
   }
 
   ionViewDidLoad() {

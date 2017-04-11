@@ -17,7 +17,6 @@ var ionic_angular_1 = require("ionic-angular");
 var google_maps_1 = require("@ionic-native/google-maps");
 var MapNativeComponent = (function () {
     function MapNativeComponent(platform) {
-        var _this = this;
         this.platform = platform;
         this.default = {
             longitude: 0,
@@ -26,10 +25,13 @@ var MapNativeComponent = (function () {
         };
         this.view = this.default;
         this.user = this.default;
-        platform.ready().then(function () {
+    }
+    MapNativeComponent.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this.platform.ready().then(function () {
             _this.loadMap();
         });
-    }
+    };
     MapNativeComponent.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad MapPage');
     };
@@ -123,7 +125,7 @@ var MapNativeComponent = (function () {
 MapNativeComponent = __decorate([
     core_1.Component({
         selector: 'map-native',
-        template: "<div id=\"map\"></div>",
+        template: "<div id=\"map\"><ng-content></ng-content></div>",
         styles: ["\n    ion-app._gmaps_cdv_ .nav-decor{\n      background-color: transparent !important;\n    }\n\n    #map {\n      display: block;\n      width: 100%;\n      height: 100%;\n      position: absolute;\n    }\n  "]
     }),
     __param(0, core_1.Inject(ionic_angular_1.Platform)),

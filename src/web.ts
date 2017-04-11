@@ -1,7 +1,8 @@
 import { Inject, Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { GoogleMap, LatLng } from '@ionic-native/google-maps';
+
+import { MapsAPILoader } from 'angular2-google-maps/core';
 
 declare var google:any;
 
@@ -41,7 +42,8 @@ export class MapWebComponent {
 
   watch:any;
   initialPosition:any;
-  map: GoogleMap;
+  map:any;
+  apiLoaded:boolean = false;
 
   default:Coord = {
     longitude: 0,
@@ -53,7 +55,11 @@ export class MapWebComponent {
   user:Coord = this.default;
   markers:Array<any>;
 
-  constructor(@Inject(Platform) public platform:any, public geolocation: Geolocation) {
+  constructor(
+    @Inject(Platform) public platform:any,
+    public geolocation: Geolocation,
+    private loader: MapsAPILoader
+  ) {
 
     platform.ready().then(() => {
       this.loadMap();
@@ -86,6 +92,9 @@ export class MapWebComponent {
   }
 
   loadMap() {
+    this.loader.load().then(()=>{
+      this.apiLoaded = true;
+    });
     this.geolocation.getCurrentPosition().then((position:any) => {
       this.setUserCoordinates(position.coords);
       this.setViewCoordinates(position.coords);
@@ -106,9 +115,9 @@ export class MapWebComponent {
 
   drawMarker(marker:any):void
   {
-    let latLng = new LatLng(marker.latitude, marker.longitude);
+    // let latLng = new LatLng(marker.latitude, marker.longitude);
     this.map.addMarker({
-      position: latLng
+      // position: latLng
     }).then((marker:any) => {
       this.map.on('categories_change').subscribe((categories:any) => {
         marker.setVisible(categories.indexOf(marker.type) ? true:false);
@@ -119,10 +128,10 @@ export class MapWebComponent {
   drawPosition(latLng:any):void
   {
     this.map.addMarker({
-      position: new LatLng(latLng.lat, latLng.lng)
+      // position: new LatLng(latLng.lat, latLng.lng)
     }).then((marker:any) => {
       this.map.on('user_move').subscribe((latLng:any) => {
-        marker.setPosition(new LatLng(latLng.lat, latLng.lng));
+        // marker.setPosition(new LatLng(latLng.lat, latLng.lng));
       });
     });
   }
